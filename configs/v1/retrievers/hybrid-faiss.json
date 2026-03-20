@@ -1,0 +1,9 @@
+{
+  "name": "hybrid-faiss",
+  "settings": {
+    "provider": "faiss",
+    "top_k": 8,
+    "chunking": "semantic",
+    "enable_keyword": true
+  }
+}

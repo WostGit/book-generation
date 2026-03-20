@@ -1,0 +1,13 @@
+{
+  "name": "mistral-7b-instruct",
+  "settings": {
+    "family": "mistral",
+    "reasoning": true,
+    "hf_id": "mistralai/Mistral-7B-Instruct-v0.3",
+    "runtime_modes": [
+      "cpu",
+      "gpu",
+      "external-endpoint"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "gemma-2-9b-it",
+  "settings": {
+    "family": "gemma",
+    "hf_id": "google/gemma-2-9b-it",
+    "runtime_modes": [
+      "cpu",
+      "gpu",
+      "external-endpoint"
+    ]
+  }
+}

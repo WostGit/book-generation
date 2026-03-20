@@ -1,0 +1,12 @@
+{
+  "name": "deepseek-r1-distill",
+  "settings": {
+    "family": "deepseek",
+    "reasoning": true,
+    "hf_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+    "runtime_modes": [
+      "gpu",
+      "external-endpoint"
+    ]
+  }
+}
