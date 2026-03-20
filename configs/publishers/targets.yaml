@@ -1,0 +1,23 @@
+version: 1
+targets:
+  - id: kdp
+    plugin: publisher-readiness
+    checks: [metadata, toc, isbn, trim_size]
+  - id: draft2digital
+    plugin: publisher-readiness
+    checks: [metadata, epub_validation, rights]
+  - id: ingramspark
+    plugin: publisher-readiness
+    checks: [pdf_x, cover_bleed, isbn]
+  - id: kobo
+    plugin: publisher-readiness
+    checks: [epub_validation, pricing_regions]
+  - id: lulu
+    plugin: publisher-readiness
+    checks: [pdf_readiness, metadata]
+  - id: gumroad
+    plugin: publisher-readiness
+    checks: [package_layout, metadata]
+  - id: itch_io
+    plugin: publisher-readiness
+    checks: [zip_bundle, product_page_assets]

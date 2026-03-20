@@ -1,0 +1,23 @@
+version: 1
+models:
+  - id: qwen-2.5-7b
+    family: qwen
+    hf_repo: Qwen/Qwen2.5-7B-Instruct
+  - id: llama-3.1-8b
+    family: llama
+    hf_repo: meta-llama/Llama-3.1-8B-Instruct
+  - id: mistral-7b
+    family: mistral
+    hf_repo: mistralai/Mistral-7B-Instruct-v0.3
+  - id: mixtral-8x7b
+    family: mixtral
+    hf_repo: mistralai/Mixtral-8x7B-Instruct-v0.1
+  - id: deepseek-r1-distill
+    family: deepseek
+    hf_repo: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+  - id: phi-4-mini
+    family: phi
+    hf_repo: microsoft/Phi-4-mini-instruct
+  - id: gemma-2-9b
+    family: gemma
+    hf_repo: google/gemma-2-9b-it

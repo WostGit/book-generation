@@ -1,0 +1,12 @@
+version: 1
+matrix_axes:
+  generation_model: [qwen-2.5-7b, llama-3.1-8b, mistral-7b, gemma-2-9b]
+  embedding_model: [bge-small]
+  reranker: [bge-reranker]
+  chunker: [recursive-1k, semantic-2k]
+  retrieval_mode: [rag-on, rag-off]
+  prompt_template: [cinematic-v1, hard-sf-v2]
+  genre: [epic fantasy, hard sci-fi, mystery]
+  chapter_count: [8, 12]
+  export_target: [all-formats]
+  validation_suite: [heuristic-suite]

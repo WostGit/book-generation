@@ -1,0 +1,68 @@
+{
+  "generation_models": [
+    {"id": "qwen-2.5-7b", "plugin": "hf-open-model", "params": {"model_id": "Qwen/Qwen2.5-7B-Instruct", "execution_mode": "cpu"}},
+    {"id": "llama-3.1-8b", "plugin": "hf-open-model", "params": {"model_id": "meta-llama/Llama-3.1-8B-Instruct", "execution_mode": "gpu"}},
+    {"id": "mistral-7b", "plugin": "hf-open-model", "params": {"model_id": "mistralai/Mistral-7B-Instruct-v0.3", "execution_mode": "endpoint", "endpoint": "https://example-inference-endpoint"}},
+    {"id": "mixtral-8x7b", "plugin": "hf-open-model", "params": {"model_id": "mistralai/Mixtral-8x7B-Instruct-v0.1", "execution_mode": "gpu"}},
+    {"id": "deepseek-r1-distill", "plugin": "hf-open-model", "params": {"model_id": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B", "execution_mode": "endpoint"}},
+    {"id": "phi-4-mini", "plugin": "hf-open-model", "params": {"model_id": "microsoft/Phi-4-mini-instruct", "execution_mode": "cpu"}},
+    {"id": "gemma-2-9b", "plugin": "hf-open-model", "params": {"model_id": "google/gemma-2-9b-it", "execution_mode": "gpu"}}
+  ],
+  "embedding_models": [
+    {"id": "bge-small", "plugin": "simple-embedding", "params": {"model_id": "BAAI/bge-small-en-v1.5"}}
+  ],
+  "rerankers": [
+    {"id": "bge-reranker", "plugin": "simple-reranker", "params": {"reranker_id": "BAAI/bge-reranker-base"}}
+  ],
+  "retrievers": [
+    {
+      "id": "local-kb",
+      "plugin": "local-corpus",
+      "params": {
+        "retriever_id": "local-kb",
+        "corpora": {
+          "knowledge_base": [
+            "Worldbuilding bible: The empire fell after the glass war.",
+            "Style guide: Use tight third-person and cinematic verbs."
+          ],
+          "research_pack": ["Uploaded dossier on medieval trade routes and guild law."],
+          "citations": ["Citation corpus includes verified historical references."]
+        }
+      }
+    }
+  ],
+  "evaluators": [
+    {"id": "heuristic-suite", "plugin": "heuristics", "params": {"evaluator_id": "heuristic-suite"}}
+  ],
+  "exporters": [
+    {"id": "all-formats", "plugin": "multiformat", "params": {"export_id": "all-formats", "extensions": ["md", "txt", "html", "docx", "odt", "epub", "pdf", "rtf", "fb2"]}}
+  ],
+  "profiles": [
+    {
+      "id": "fantasy-rag-smoke",
+      "generation_model": "qwen-2.5-7b",
+      "embedding_model": "bge-small",
+      "reranker": "bge-reranker",
+      "prompt_template": "cinematic-v1",
+      "chunker": "recursive-1k",
+      "retrieval": {"enabled": true, "retriever_id": "local-kb", "top_k": 5, "corpora": ["knowledge_base", "research_pack", "citations"]},
+      "genres": ["epic fantasy", "grimdark"],
+      "chapter_counts": [8, 12],
+      "export_targets": ["all-formats"],
+      "validation_suites": ["heuristic-suite"]
+    },
+    {
+      "id": "sci-fi-no-rag",
+      "generation_model": "llama-3.1-8b",
+      "embedding_model": "bge-small",
+      "reranker": "bge-reranker",
+      "prompt_template": "hard-sf-v2",
+      "chunker": "semantic-2k",
+      "retrieval": {"enabled": false},
+      "genres": ["hard sci-fi", "space opera"],
+      "chapter_counts": [10],
+      "export_targets": ["all-formats"],
+      "validation_suites": ["heuristic-suite"]
+    }
+  ]
+}

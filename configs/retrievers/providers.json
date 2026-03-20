@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "providers": [
+    {"id": "faiss-local", "type": "vector", "plugin": "local-corpus"},
+    {"id": "qdrant", "type": "vector", "plugin": "future-qdrant"},
+    {"id": "milvus", "type": "vector", "plugin": "future-milvus"}
+  ]
+}
