@@ -1,0 +1,5 @@
+name: phi-4-mini-instruct
+settings:
+  family: phi
+  hf_id: microsoft/Phi-4-mini-instruct
+  runtime_modes: [cpu, gpu, external-endpoint]
