@@ -1,0 +1,85 @@
+name: book-lab-matrix
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  experiment:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      max-parallel: 24
+      matrix:
+        runner: [ubuntu-latest]
+        model: [qwen2.5-7b-instruct, llama3.1-8b-instruct, mistral-7b-instruct, mixtral-8x7b-instruct, deepseek-r1-distill, phi-4-mini-instruct, gemma-2-9b-it]
+        retriever: [hybrid-faiss, chroma-dense]
+        prompt: [epic-fantasy]
+        genre: [fantasy, mystery, romance, sci-fi]
+        export_profile: [all]
+        validation: [strict]
+        fallback_mode: [cpu, external-endpoint]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Materialize profile
+        run: |
+          cat > /tmp/profile.json <<JSON
+          {
+            "name": "matrix-${{ matrix.model }}-${{ matrix.retriever }}-${{ matrix.genre }}-5x10",
+            "components": {
+              "model": "models/${{ matrix.model }}.json",
+              "embedding": "embeddings/bge-large.json",
+              "reranker": "rerankers/bge-reranker.json",
+              "retriever": "retrievers/${{ matrix.retriever }}.json",
+              "prompt": "prompts/${{ matrix.prompt }}.json"
+            },
+            "scenario": {
+              "genre": "${{ matrix.genre }}",
+              "chapter_count": 5,
+              "subchapters_per_chapter": 10
+            },
+            "outputs": {
+              "formats": ["md", "txt", "html", "docx", "odt", "epub", "pdf", "rtf", "fb2"],
+              "validators": ["strict-suite"]
+            }
+          }
+          JSON
+
+      - name: Run Experiment
+        run: |
+          booklab run \
+            --experiment /tmp/profile.json \
+            --workspace .artifacts \
+            --fallback-mode ${{ matrix.fallback_mode }}
+
+      - name: Build Reports
+        run: |
+          booklab report --workspace .artifacts --out .artifacts/reports
+
+
+      - name: Upload Book Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: books-${{ matrix.model }}-${{ matrix.retriever }}-${{ matrix.genre }}-5x10
+          path: .artifacts/**/exports/book.*
+          retention-days: 14
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-${{ matrix.model }}-${{ matrix.retriever }}-${{ matrix.genre }}-5x10
+          path: .artifacts
+          retention-days: 14

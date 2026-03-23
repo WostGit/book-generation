@@ -1,0 +1,20 @@
+name: baseline-enterprise-rag
+components:
+  model: models/qwen2.5-7b-instruct.yaml
+  embedding: embeddings/bge-large.yaml
+  reranker: rerankers/bge-reranker.yaml
+  retriever: retrievers/hybrid-faiss.yaml
+  prompt: prompts/epic-fantasy.yaml
+scenario:
+  genre: fantasy
+  chapter_count: 6
+outputs:
+  formats: [md, txt, html, docx, odt, epub, pdf, rtf, fb2]
+  validators: [strict-suite]
+rag_sources:
+  - kind: style_guide
+    path: data/rag/style-guide.txt
+    weight: 1.0
+  - kind: lore_bible
+    path: data/rag/lore-bible.txt
+    weight: 1.2

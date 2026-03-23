@@ -1,0 +1,8 @@
+name: strict-suite
+settings:
+  checks:
+    - structural_integrity
+    - metadata_completeness
+    - conversion_success
+    - formatting_quality
+    - platform_readiness

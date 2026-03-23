@@ -1,0 +1,5 @@
+name: chroma-dense
+settings:
+  provider: chromadb
+  top_k: 12
+  chunking: recursive
