@@ -10,6 +10,8 @@ BookLab is a modular, enterprise-style experimentation pipeline for end-to-end b
 - **Resumable runs**: deterministic run IDs, cache-aware dedupe, and per-run provenance logs.
 - **RAG-native**: optional grounding using knowledge bases, style guides, lore bibles, and citation corpora.
 - **Publishing-ready outputs**: markdown/txt/html/docx/odt/epub/pdf/rtf/fb2 validators and packaging checks.
+- **Standardized manuscript shape**: every run is normalized to 5 chapters × 10 subchapters for direct comparison.
+- **Inspectable artifacts**: each run writes `book.md` and exported book files for download from CI artifacts.
 
 ## Quick Start
 

@@ -6,6 +6,9 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
+STANDARD_CHAPTER_COUNT = 5
+STANDARD_SUBCHAPTER_COUNT = 10
+
 
 @dataclass(slots=True)
 class ExperimentComponent:
@@ -31,9 +34,14 @@ class ExperimentProfile:
     prompt: ExperimentComponent
     genre: str
     chapter_count: int
+    subchapter_count: int
     exports: list[str]
     validators: list[str]
     rag_sources: list[RAGSource] = field(default_factory=list)
+
+    def standardize_structure(self) -> None:
+        self.chapter_count = STANDARD_CHAPTER_COUNT
+        self.subchapter_count = STANDARD_SUBCHAPTER_COUNT
 
     def run_key(self) -> str:
         payload = {
@@ -45,6 +53,7 @@ class ExperimentProfile:
             "prompt": self.prompt.name,
             "genre": self.genre,
             "chapter_count": self.chapter_count,
+            "subchapter_count": self.subchapter_count,
             "exports": self.exports,
             "validators": self.validators,
             "rag": [f"{src.kind}:{src.path}:{src.weight}" for src in self.rag_sources],

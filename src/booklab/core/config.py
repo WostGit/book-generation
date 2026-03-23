@@ -58,8 +58,7 @@ def load_experiment(path: Path, root: Path) -> ExperimentProfile:
         return load_component(_resolve(root, config_rel), kind)
 
     rag_sources = [RAGSource(**item) for item in data.get("rag_sources", [])]
-
-    return ExperimentProfile(
+    profile = ExperimentProfile(
         name=data["name"],
         model=comp("model", "model"),
         embedding=comp("embedding", "embedding"),
@@ -67,8 +66,11 @@ def load_experiment(path: Path, root: Path) -> ExperimentProfile:
         retriever=comp("retriever", "retriever"),
         prompt=comp("prompt", "prompt"),
         genre=data["scenario"]["genre"],
-        chapter_count=int(data["scenario"]["chapter_count"]),
+        chapter_count=int(data["scenario"].get("chapter_count", 5)),
+        subchapter_count=int(data["scenario"].get("subchapter_count", 10)),
         exports=list(data["outputs"]["formats"]),
         validators=list(data["outputs"]["validators"]),
         rag_sources=rag_sources,
     )
+    profile.standardize_structure()
+    return profile

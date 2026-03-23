@@ -45,14 +45,22 @@ def run_experiment(experiment_path: Path, workspace: Path, fallback_mode: str = 
             prompt=full_prompt,
             model=profile.model,
             chapter_count=profile.chapter_count,
+            subchapter_count=profile.subchapter_count,
             fallback_mode=fallback_mode,
         )
     )
 
+    manuscript_path = run_dir / "book.md"
+    manuscript_path.write_text(text, encoding="utf-8")
+
     exports = export_book(text, run_dir / "exports", profile.exports)
-    export_validity = validate_exports(exports)
+    exports["manuscript"] = manuscript_path
+
+    export_validity = validate_exports({k: v for k, v in exports.items() if k != "manuscript"})
     metrics = evaluate_book(text, rag_used=bool(profile.rag_sources))
     metrics.update({f"export_valid_{k}": float(v) for k, v in export_validity.items()})
+    metrics["chapters_standardized"] = float(profile.chapter_count == 5)
+    metrics["subchapters_standardized"] = float(profile.subchapter_count == 10)
 
     publisher_results: dict[str, bool] = {}
     for publisher_name in ["kdp", "draft2digital", "ingramspark", "kobo", "lulu", "gumroad", "itchio"]:

@@ -9,7 +9,8 @@
   },
   "scenario": {
     "genre": "fantasy",
-    "chapter_count": 6
+    "chapter_count": 5,
+    "subchapter_count": 10
   },
   "outputs": {
     "formats": [

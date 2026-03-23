@@ -10,7 +10,8 @@ def test_load_experiment() -> None:
     path = Path("configs/v1/experiments/baseline.json")
     profile = load_experiment(path, root=path.parent.parent)
     assert profile.name == "baseline-enterprise-rag"
-    assert profile.chapter_count == 6
+    assert profile.chapter_count == 5
+    assert profile.subchapter_count == 10
     assert "pdf" in profile.exports
 
 
@@ -18,6 +19,13 @@ def test_runner_and_reports(tmp_path: Path) -> None:
     exp = Path("configs/v1/experiments/lightweight.json")
     prov = run_experiment(exp, tmp_path)
     assert prov.exists()
+
+    run_dir = prov.parent
+    manuscript = run_dir / "book.md"
+    assert manuscript.exists()
+    manuscript_text = manuscript.read_text(encoding="utf-8")
+    assert manuscript_text.count("## Chapter ") == 5
+    assert manuscript_text.count("### ") == 50
 
     out = tmp_path / "reports"
     reports = generate_reports(tmp_path, out)
