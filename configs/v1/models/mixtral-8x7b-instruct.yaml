@@ -1,0 +1,5 @@
+name: mixtral-8x7b-instruct
+settings:
+  family: mixtral
+  hf_id: mistralai/Mixtral-8x7B-Instruct-v0.1
+  runtime_modes: [gpu, external-endpoint]

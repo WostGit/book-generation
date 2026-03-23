@@ -1,0 +1,4 @@
+name: bge-large-en
+settings:
+  provider: sentence-transformers
+  hf_id: BAAI/bge-large-en-v1.5

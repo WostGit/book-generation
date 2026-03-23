@@ -1,0 +1,26 @@
+{
+  "name": "lightweight-no-rag",
+  "components": {
+    "model": "models/phi-4-mini-instruct.json",
+    "embedding": "embeddings/bge-large.json",
+    "reranker": "rerankers/bge-reranker.json",
+    "retriever": "retrievers/chroma-dense.json",
+    "prompt": "prompts/epic-fantasy.json"
+  },
+  "scenario": {
+    "genre": "science-fantasy",
+    "chapter_count": 4
+  },
+  "outputs": {
+    "formats": [
+      "md",
+      "txt",
+      "html",
+      "epub",
+      "pdf"
+    ],
+    "validators": [
+      "strict-suite"
+    ]
+  }
+}

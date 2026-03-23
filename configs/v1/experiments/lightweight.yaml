@@ -1,0 +1,13 @@
+name: lightweight-no-rag
+components:
+  model: models/phi-4-mini-instruct.yaml
+  embedding: embeddings/bge-large.yaml
+  reranker: rerankers/bge-reranker.yaml
+  retriever: retrievers/chroma-dense.yaml
+  prompt: prompts/epic-fantasy.yaml
+scenario:
+  genre: science-fantasy
+  chapter_count: 4
+outputs:
+  formats: [md, txt, html, epub, pdf]
+  validators: [strict-suite]

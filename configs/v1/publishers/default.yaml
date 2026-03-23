@@ -1,0 +1,3 @@
+name: publisher-default
+settings:
+  targets: [kdp, draft2digital, ingramspark, kobo, lulu, gumroad, itchio]
