@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "booklab"
+version = "0.1.0"
+description = "Modular multi-model RAG book generation lab"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Book Lab"}]
+dependencies = []
+
+[project.optional-dependencies]
+export = ["pypandoc>=1.13"]
+dev = ["pytest>=8.0", "pytest-cov>=5.0", "mypy>=1.9"]
+
+[project.scripts]
+booklab = "booklab.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+mypy_path = "src"
+packages = ["booklab"]

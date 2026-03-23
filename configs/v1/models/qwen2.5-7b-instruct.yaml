@@ -1,0 +1,6 @@
+name: qwen2.5-7b-instruct
+settings:
+  family: qwen
+  reasoning: true
+  hf_id: Qwen/Qwen2.5-7B-Instruct
+  runtime_modes: [cpu, gpu, external-endpoint]

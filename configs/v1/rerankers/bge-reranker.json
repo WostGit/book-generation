@@ -1,0 +1,7 @@
+{
+  "name": "bge-reranker-large",
+  "settings": {
+    "provider": "cross-encoder",
+    "hf_id": "BAAI/bge-reranker-large"
+  }
+}
